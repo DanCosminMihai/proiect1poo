@@ -10,7 +10,6 @@ import strategy.NiceScoreStrategy;
 public class Round {
 
   public void newRound(int roundNumber, Database database) {
-    Double sum = 0.0;
     if (roundNumber > 0) {
       //update budget
       database.setSantaBudget(database.getAnnualChanges().get(roundNumber - 1).getNewSantaBudget());
@@ -26,6 +25,7 @@ public class Round {
       database.getChildren().forEach((c) -> {
         if (c.getNiceScoreHistory() == null) {
           c.setNiceScoreHistory(new ArrayList<Double>());
+          c.getNiceScoreHistory().add(c.getAverageScore());
         }
       });
 
@@ -49,7 +49,13 @@ public class Round {
               newprefs.add(oldpref);
             }
           }
-          child.setGiftsPreferences(newprefs);
+          ArrayList<String> p = new ArrayList<String>();
+          for(String pref : newprefs) {
+            if(!p.contains(pref)){
+              p.add(pref);
+            }
+          }
+          child.setGiftsPreferences(p);
         }
       });
 
@@ -68,6 +74,8 @@ public class Round {
       }
       child.setAverageScore(strategy.getAverageNiceScore(child));
     });
+
+    Double sum = 0.0;
     for (int i = 0; i < database.getChildren().size(); i++) {
       sum += database.getChildren().get(i).getAverageScore();
     }
