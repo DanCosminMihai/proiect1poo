@@ -76,7 +76,7 @@ public final class Database {
           ArrayList<String> prefs = new ArrayList<String>();
           update.get("giftsPreferences").forEach((e) -> prefs.add(e.asText()));
           cu.add(new ChildUpdate(update.get("id").asInt(),
-              update.get("niceScore").asDouble(), prefs));
+              update.get("niceScore").asText(), prefs));
         }
         annualChanges.add(new AnnualChange(change.get("newSantaBudget").asDouble(), ng, nc, cu));
       }

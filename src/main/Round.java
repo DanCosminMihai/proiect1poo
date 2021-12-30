@@ -11,7 +11,6 @@ public class Round {
 
   public void newRound(int roundNumber, Database database) {
     Double sum = 0.0;
-    database.getChildren().removeIf((child) -> child.getAge() > 18);
     if (roundNumber > 0) {
       //update budget
       database.setSantaBudget(database.getAnnualChanges().get(roundNumber - 1).getNewSantaBudget());
@@ -24,6 +23,11 @@ public class Round {
       //add new kids
       database.getChildren()
           .addAll(database.getAnnualChanges().get(roundNumber - 1).getNewChildren());
+      database.getChildren().forEach((c) -> {
+        if (c.getNiceScoreHistory() == null) {
+          c.setNiceScoreHistory(new ArrayList<Double>());
+        }
+      });
 
       //add new gifts
       database.getSantaGiftsList()
@@ -32,34 +36,40 @@ public class Round {
       //update kids
       database.getAnnualChanges().get(roundNumber - 1).getChildrenUpdates().forEach((update) -> {
         Child child = Database.getChildById(update.getId(), database);
-        //add score to history
-        if (update.getNiceScore() != null) {
-          child.getNiceScoreHistory().add(update.getNiceScore());
-        }
-        //add prefs
-        //make prefs unique
-        ArrayList<String> newprefs = update.getGiftPreferences();
-        for (String oldpref : child.getGiftsPreferences()) {
-          if (!newprefs.contains(oldpref)) {
-            newprefs.add(oldpref);
+        if (child != null) {
+          //add score to history
+          if (!update.getNiceScore().equals("null")) {
+            child.getNiceScoreHistory().add(Double.parseDouble(update.getNiceScore()));
           }
+          //add prefs
+          //make prefs unique
+          ArrayList<String> newprefs = update.getGiftPreferences();
+          for (String oldpref : child.getGiftsPreferences()) {
+            if (!newprefs.contains(oldpref)) {
+              newprefs.add(oldpref);
+            }
+          }
+          child.setGiftsPreferences(newprefs);
         }
-        child.setGiftsPreferences(newprefs);
       });
 
       //sort kids
       database.getChildren().sort((c1, c2) -> c1.getId() - c2.getId());
     }
+    database.getChildren().removeIf((child) -> child.getAge() > 18);
     database.getChildren().forEach((child) -> {
       if (roundNumber == 0) {
         child.setNiceScoreHistory(new ArrayList<Double>());
         child.getNiceScoreHistory().add(child.getAverageScore());
       }
       NiceScoreStrategy strategy = StrategyFactory.getStrategy(child);
+      if (strategy == null) {
+        System.out.println(child);
+      }
       child.setAverageScore(strategy.getAverageNiceScore(child));
     });
-    for (Child child : database.getChildren()) {
-      sum += child.getAverageScore();
+    for (int i = 0; i < database.getChildren().size(); i++) {
+      sum += database.getChildren().get(i).getAverageScore();
     }
     Double budgetUnit = database.getSantaBudget() / sum;
     database.getChildren()
