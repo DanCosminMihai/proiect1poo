@@ -3,7 +3,6 @@ package main;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import common.Constants;
 import database.Child;
 import java.io.File;
@@ -19,7 +18,7 @@ public class Writer {
   public void addToOutput(ArrayList<Child> children) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayNode arrayNode = objectMapper.valueToTree(children);
-    JsonNode jsonNode = objectMapper.createObjectNode().set("children",arrayNode);
+    JsonNode jsonNode = objectMapper.createObjectNode().set("children", arrayNode);
     output.add(jsonNode);
   }
 

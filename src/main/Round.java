@@ -13,6 +13,8 @@ public class Round {
     Double sum = 0.0;
     database.getChildren().removeIf((child) -> child.getAge() > 18);
     if (roundNumber > 0) {
+      //update budget
+      database.setSantaBudget(database.getAnnualChanges().get(roundNumber - 1).getNewSantaBudget());
       //increment kids age
       database.getChildren().forEach((child) -> child.setAge(child.getAge() + 1));
 

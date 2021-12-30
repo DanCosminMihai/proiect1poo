@@ -1,9 +1,7 @@
 package main;
 
 import checker.Checker;
-import database.Child;
 import database.Database;
-import java.util.ArrayList;
 
 /**
  * Class used to run the code
