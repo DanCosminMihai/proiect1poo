@@ -15,6 +15,15 @@ public final class Database {
   private ArrayList<Gift> santaGiftsList;
   private ArrayList<AnnualChange> annualChanges;
 
+  public static Child getChildById(int id, Database database) {
+    for (Child child : database.getChildren()) {
+      if (child.getId() == id) {
+        return child;
+      }
+    }
+    return null;
+  }
+
   public void readInput(String test) {
     ObjectMapper objectMapper = new ObjectMapper();
     File file = new File(Constants.TESTS_PATH + test + Constants.FILE_EXTENSION);
@@ -74,7 +83,45 @@ public final class Database {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
 
+  public Integer getNumberOfYears() {
+    return numberOfYears;
+  }
 
+  public void setNumberOfYears(Integer numberOfYears) {
+    this.numberOfYears = numberOfYears;
+  }
+
+  public Double getSantaBudget() {
+    return santaBudget;
+  }
+
+  public void setSantaBudget(Double santaBudget) {
+    this.santaBudget = santaBudget;
+  }
+
+  public ArrayList<Child> getChildren() {
+    return children;
+  }
+
+  public void setChildren(ArrayList<Child> children) {
+    this.children = children;
+  }
+
+  public ArrayList<Gift> getSantaGiftsList() {
+    return santaGiftsList;
+  }
+
+  public void setSantaGiftsList(ArrayList<Gift> santaGiftsList) {
+    this.santaGiftsList = santaGiftsList;
+  }
+
+  public ArrayList<AnnualChange> getAnnualChanges() {
+    return annualChanges;
+  }
+
+  public void setAnnualChanges(ArrayList<AnnualChange> annualChanges) {
+    this.annualChanges = annualChanges;
   }
 }

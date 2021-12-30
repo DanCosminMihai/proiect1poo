@@ -1,7 +1,9 @@
 package main;
 
 import checker.Checker;
+import database.Child;
 import database.Database;
+import java.util.ArrayList;
 
 /**
  * Class used to run the code
@@ -19,7 +21,15 @@ public final class Main {
    */
   public static void main(final String[] args) {
     Database database = new Database();
-    database.readInput("1");
+    String test = "2";
+    database.readInput(test);
+    Round round = new Round();
+    Writer writer = new Writer();
+    for (int i = 0; i <= database.getNumberOfYears(); i++) {
+      round.newRound(i, database);
+      writer.addToOutput(database.getChildren());
+    }
+    writer.writeJSON(test);
     Checker.calculateScore();
   }
 }
