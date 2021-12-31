@@ -1,0 +1,24 @@
+Dan Cosmin-Mihai, 322CA
+
+Testele sunt executate pe rand in Main, astfel:
+	- se citesc datele din fila json si se construieste baza de date(Database,
+	ce contine obiecte din clasele auxiliare Child, AnnualChange, ChildUpdate
+	si Gift);
+	- in runda 0 se calculeaza scorul de cumintenie pentru fiecare copil,
+	dupa care se calculeaza unitatea de buget si bugetul alocat fiecarui copil,
+	apoi distribuie cadourile, in functie de preferinte si buget;
+	- in urmatoarele runde se incepe prin actualizarea bazei de date cu datele
+	din annualChange, apoi se repeta operatiile din runda 0;
+	- intre fiecare runda, se salveaza lista de copii din baza de date, impreuna
+	cu rezultatele cerute intr-un obiect json intermediar, pentru a fi printate
+	mai tarziu, deoarece baza de date se schimba la fiecare runda. Aceste date
+	sunt retinute sub forma de string pentru a fi immutable.
+	- dupa executarea tuturor rundelor, datele salvate in obiectul json sunt
+	scrise intr-un fisier json numit corespunzator testului.
+	
+Pentru a calcula scorul mediu de cumintenie pentru fiecare copil, se aplica un
+design pattern de tip Strategy (interfata NiceScoreStrategy este implementata
+de BabyStrategy, KidStrategy si TeenStrategy, fiecare dintre acestea calculand
+scorul mediu conform cerintei, in functie de categoria de varsta). Pentru a 
+atribui fiecarui copil o strategie corespunzatoare, s-a aplicat design patternul
+Factory (StrategyFactory).

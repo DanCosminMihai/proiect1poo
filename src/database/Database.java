@@ -39,6 +39,7 @@ public final class Database {
   public void readInput(final String test) {
     ObjectMapper objectMapper = new ObjectMapper();
     File file = new File(Constants.TESTS_PATH + test + Constants.FILE_EXTENSION);
+    //read data from json file
     try {
       JsonNode jsonNode = objectMapper.readTree(file);
       numberOfYears = jsonNode.get("numberOfYears").asInt();
