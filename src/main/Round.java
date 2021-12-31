@@ -1,5 +1,6 @@
 package main;
 
+import common.Constants;
 import database.Child;
 import database.Database;
 import database.Gift;
@@ -7,9 +8,15 @@ import factory.StrategyFactory;
 import java.util.ArrayList;
 import strategy.NiceScoreStrategy;
 
-public class Round {
+public final class Round {
 
-  public void newRound(int roundNumber, Database database) {
+  /**
+   * Executes a new round of gift distributing, updating the database accordingly.
+   *
+   * @param roundNumber
+   * @param database
+   */
+  public void newRound(final int roundNumber, final Database database) {
     if (roundNumber > 0) {
       //update budget
       database.setSantaBudget(database.getAnnualChanges().get(roundNumber - 1).getNewSantaBudget());
@@ -17,7 +24,7 @@ public class Round {
       database.getChildren().forEach((child) -> child.setAge(child.getAge() + 1));
 
       //remove if adult
-      database.getChildren().removeIf((child) -> child.getAge() > 18);
+      database.getChildren().removeIf((child) -> child.getAge() > Constants.EIGHTEEN);
 
       //add new kids
       database.getChildren()
@@ -50,8 +57,8 @@ public class Round {
             }
           }
           ArrayList<String> p = new ArrayList<String>();
-          for(String pref : newprefs) {
-            if(!p.contains(pref)){
+          for (String pref : newprefs) {
+            if (!p.contains(pref)) {
               p.add(pref);
             }
           }
@@ -62,13 +69,14 @@ public class Round {
       //sort kids
       database.getChildren().sort((c1, c2) -> c1.getId() - c2.getId());
     }
-    database.getChildren().removeIf((child) -> child.getAge() > 18);
+    database.getChildren().removeIf((child) -> child.getAge() > Constants.EIGHTEEN);
     database.getChildren().forEach((child) -> {
       if (roundNumber == 0) {
         child.setNiceScoreHistory(new ArrayList<Double>());
         child.getNiceScoreHistory().add(child.getAverageScore());
       }
-      NiceScoreStrategy strategy = StrategyFactory.getStrategy(child);
+      StrategyFactory strategyFactory = new StrategyFactory(child);
+      NiceScoreStrategy strategy = strategyFactory.getStrategy();
       if (strategy == null) {
         System.out.println(child);
       }

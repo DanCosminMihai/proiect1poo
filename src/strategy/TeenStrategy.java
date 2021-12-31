@@ -2,10 +2,10 @@ package strategy;
 
 import database.Child;
 
-public class TeenStrategy implements NiceScoreStrategy {
+public final class TeenStrategy implements NiceScoreStrategy {
 
   @Override
-  public Double getAverageNiceScore(Child child) {
+  public Double getAverageNiceScore(final Child child) {
     Double sum = 0.0;
     for (int i = 0; i < child.getNiceScoreHistory().size(); i++) {
       sum += child.getNiceScoreHistory().get(i) * (i + 1);

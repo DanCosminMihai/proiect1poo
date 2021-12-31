@@ -6,7 +6,7 @@ public final class Gift {
   private Double price;
   private String category;
 
-  public Gift(String productName, Double price, String category) {
+  public Gift(final String productName, final Double price, final String category) {
     this.productName = productName;
     this.price = price;
     this.category = category;
@@ -24,12 +24,4 @@ public final class Gift {
     return category;
   }
 
-  @Override
-  public String toString() {
-    return "Gift{" +
-        "productName='" + productName + '\'' +
-        ", price=" + price +
-        ", category='" + category + '\'' +
-        '}';
-  }
 }

@@ -19,7 +19,7 @@ public final class Main {
    * @param args the arguments used to call the main method
    */
   public static void main(final String[] args) {
-    for (int number = 1; number <=Constants.TESTS_NUMBER; number++) {
+    for (int number = 1; number <= Constants.TESTS_NUMBER; number++) {
       Database database = new Database();
       String test = Integer.toString(number);
       database.readInput(test);

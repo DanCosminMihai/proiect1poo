@@ -15,7 +15,14 @@ public final class Database {
   private ArrayList<Gift> santaGiftsList;
   private ArrayList<AnnualChange> annualChanges;
 
-  public static Child getChildById(int id, Database database) {
+  /**
+   * Returns a child object with the given corresponding id.
+   *
+   * @param id
+   * @param database
+   * @return Child object
+   */
+  public static Child getChildById(final int id, final Database database) {
     for (Child child : database.getChildren()) {
       if (child.getId() == id) {
         return child;
@@ -24,7 +31,12 @@ public final class Database {
     return null;
   }
 
-  public void readInput(String test) {
+  /**
+   * Reads the input from the json file and creates database for the given test.
+   *
+   * @param test
+   */
+  public void readInput(final String test) {
     ObjectMapper objectMapper = new ObjectMapper();
     File file = new File(Constants.TESTS_PATH + test + Constants.FILE_EXTENSION);
     try {
@@ -89,7 +101,7 @@ public final class Database {
     return numberOfYears;
   }
 
-  public void setNumberOfYears(Integer numberOfYears) {
+  public void setNumberOfYears(final Integer numberOfYears) {
     this.numberOfYears = numberOfYears;
   }
 
@@ -97,7 +109,7 @@ public final class Database {
     return santaBudget;
   }
 
-  public void setSantaBudget(Double santaBudget) {
+  public void setSantaBudget(final Double santaBudget) {
     this.santaBudget = santaBudget;
   }
 
@@ -105,7 +117,7 @@ public final class Database {
     return children;
   }
 
-  public void setChildren(ArrayList<Child> children) {
+  public void setChildren(final ArrayList<Child> children) {
     this.children = children;
   }
 
@@ -113,7 +125,7 @@ public final class Database {
     return santaGiftsList;
   }
 
-  public void setSantaGiftsList(ArrayList<Gift> santaGiftsList) {
+  public void setSantaGiftsList(final ArrayList<Gift> santaGiftsList) {
     this.santaGiftsList = santaGiftsList;
   }
 
@@ -121,7 +133,7 @@ public final class Database {
     return annualChanges;
   }
 
-  public void setAnnualChanges(ArrayList<AnnualChange> annualChanges) {
+  public void setAnnualChanges(final ArrayList<AnnualChange> annualChanges) {
     this.annualChanges = annualChanges;
   }
 }

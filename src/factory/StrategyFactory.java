@@ -1,5 +1,6 @@
 package factory;
 
+import common.Constants;
 import database.Child;
 import strategy.BabyStrategy;
 import strategy.KidStrategy;
@@ -8,14 +9,25 @@ import strategy.TeenStrategy;
 
 public final class StrategyFactory {
 
-  public static NiceScoreStrategy getStrategy(Child child) {
-    if (child.getAge() < 5) {
+  private Child child;
+
+  public StrategyFactory(final Child child) {
+    this.child = child;
+  }
+
+  /**
+   * Decides what strategy to apply for a given child, depending on age.
+   *
+   * @return NiceScoreStrategy object
+   */
+  public NiceScoreStrategy getStrategy() {
+    if (child.getAge() < Constants.FIVE) {
       return new BabyStrategy();
     }
-    if (child.getAge() >= 5 && child.getAge() < 12) {
+    if (child.getAge() < Constants.TWELVE) {
       return new KidStrategy();
     }
-    if (child.getAge() >= 12 && child.getAge() <= 18) {
+    if (child.getAge() <= Constants.EIGHTEEN) {
       return new TeenStrategy();
     }
     return null;

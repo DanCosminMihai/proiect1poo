@@ -11,11 +11,16 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class Writer {
+public final class Writer {
 
   private JSONArray output;
 
-  public void addToOutput(ArrayList<Child> children) {
+  /**
+   * Adds current database status to an output json object.
+   *
+   * @param children
+   */
+  public void addToOutput(final ArrayList<Child> children) {
     ObjectMapper objectMapper = new ObjectMapper();
     ArrayNode arrayNode = objectMapper.valueToTree(children);
     JsonNode jsonNode = objectMapper.createObjectNode().set("children", arrayNode);
@@ -26,7 +31,12 @@ public class Writer {
     this.output = new JSONArray();
   }
 
-  public void writeJSON(String test) {
+  /**
+   * Writes the output json object to the file corresponding to the current test.
+   *
+   * @param test
+   */
+  public void writeJSON(final String test) {
     ObjectMapper objectMapper = new ObjectMapper();
 
     File dir = new File("output");

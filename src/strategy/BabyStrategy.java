@@ -1,11 +1,12 @@
 package strategy;
 
+import common.Constants;
 import database.Child;
 
-public class BabyStrategy implements NiceScoreStrategy {
+public final class BabyStrategy implements NiceScoreStrategy {
 
   @Override
-  public Double getAverageNiceScore(Child child) {
-    return 10.0;
+  public Double getAverageNiceScore(final Child child) {
+    return Constants.BABYSCORE;
   }
 }

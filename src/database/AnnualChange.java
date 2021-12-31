@@ -2,15 +2,15 @@ package database;
 
 import java.util.ArrayList;
 
-public class AnnualChange {
+public final class AnnualChange {
 
-  private Double newSantaBudget;
-  private ArrayList<Gift> newGifts;
-  private ArrayList<Child> newChildren;
-  private ArrayList<ChildUpdate> childrenUpdates;
+  private final Double newSantaBudget;
+  private final ArrayList<Gift> newGifts;
+  private final ArrayList<Child> newChildren;
+  private final ArrayList<ChildUpdate> childrenUpdates;
 
-  public AnnualChange(Double newSantaBudget, ArrayList<Gift> newGifts,
-      ArrayList<Child> newChildren, ArrayList<ChildUpdate> childrenUpdates) {
+  public AnnualChange(final Double newSantaBudget, final ArrayList<Gift> newGifts,
+      final ArrayList<Child> newChildren, final ArrayList<ChildUpdate> childrenUpdates) {
     this.newSantaBudget = newSantaBudget;
     this.newGifts = newGifts;
     this.newChildren = newChildren;
@@ -33,13 +33,4 @@ public class AnnualChange {
     return childrenUpdates;
   }
 
-  @Override
-  public String toString() {
-    return "AnnualChange{" +
-        "newSantaBudget=" + newSantaBudget +
-        ", newGifts=" + newGifts +
-        ", newChildren=" + newChildren +
-        ", childrenUpdates=" + childrenUpdates +
-        '}';
-  }
 }
